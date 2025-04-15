@@ -9,9 +9,9 @@ on:
       - "ga-ignore-**"
 
 env:
-  MIRROR_URL: git@github.com:YetAnotherMechanicusEnjoyer/template.git
-  MIRROR_REPO: YetAnotherMechanicusEnjoyer/template
-  EXECUTABLES: a.out
+  MIRROR_URL: git@github.com:EpitechPGEPromo2029/G-SEC-210-BDX-2-1-pipeto-ahmed.al-rawi.git
+  MIRROR_REPO: EpitechPGEPromo2029/G-SEC-210-BDX-2-1-pipeto-ahmed.al-rawi
+  EXECUTABLES: pipeto
 
 jobs:
   check_repository:

@@ -1,3 +1,4 @@
+```bash
 NAME
         Pipeto - Yet Another CyberSec Project
 
@@ -15,3 +16,4 @@ AUTHOR
         Ahmed AL RAWI
         Alexy CANU
         Tom MAROT
+```
