@@ -1,0 +1,28 @@
+Rapport Pipeto Ahmed Alexy:
+
+dans un premier temps, il faut checker le binaire et voir comment il est fait.
+
+on peut faire la commande:
+strings pipeto
+
+et dans cette chaine de caractère incompréhensible il y a à un moment il y a écrit que c'est pack avec UPX donc on peut télécharger UPX
+sudo pacman -S upx
+
+et ensuite on peut unpack le fichier binaire comme ceci:
+upx -d pipeto
+
+maintenant le fichier est bien plus compréhensible dans ghidra et on peut essayer de comprendre le fonctionnement du binaire.
+
+voici les différentes failles:
+
+breach_1: hardcoded password -> activate_emergency_protocols : admin123
+
+breach_2: buffer overflow -> activate_emergency_protocols : buffer de 112 mais le mdp a besoin que de 100 (12 en trop)
+
+breach_3: hardcoded secret -> load_fuel_rods : {The secret stone is here !}
+
+breach_4: common injection -> log_system_event : si on met leak ça nous écris le mot de passe dans le fichier Data/system.log
+
+breach_5: interger overflow -> set_reactor_power : si on met 2147483647 ce qui est la valeur max d'un int ça fait un shutdown
+
+breach_6: insecure random value -> simulate_meltdown : si local_c est en dessous de 5 grâce à la fonction rand() alors ça va déclancher le secret code leaked
