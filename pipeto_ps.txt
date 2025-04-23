@@ -1,0 +1,157 @@
+
+/* WARNING: Instruction at (ram,0x0040b388) overlaps instruction at (ram,0x0040b387)
+    */
+/* WARNING: Removing unreachable block (ram,0x0040b313) */
+/* WARNING: Removing unreachable block (ram,0x0040b31b) */
+/* WARNING: Removing unreachable block (ram,0x0040b317) */
+/* WARNING: Removing unreachable block (ram,0x0040b371) */
+/* WARNING: Heritage AFTER dead removal. Example location: s0xffffffffffffffc0 : 0x0040b411 */
+/* WARNING: Restarted to delay deadcode elimination for space: stack */
+
+void processEntry entry(undefined8 param_1)
+{
+  ulong *puVar1;
+  uint uVar2;
+  uint uVar3;
+  undefined8 uVar4;
+  int iVar5;
+  uint uVar6;
+  undefined8 uVar7;
+  int extraout_EDX;
+  ulong uVar8;
+  code *pcVar9;
+  code *extraout_RDX;
+  code *extraout_RDX_00;
+  code *extraout_RDX_01;
+  code *extraout_RDX_02;
+  code *extraout_RDX_03;
+  code *extraout_RDX_04;
+  long lVar10;
+  long *plVar11;
+  undefined1 *puVar12;
+  undefined1 *puVar13;
+  undefined *puVar14;
+  long *plVar15;
+  byte bVar16;
+  byte bVar17;
+  byte bVar18;
+  undefined auVar19 [16];
+  long local_cc0 [399];
+  undefined8 uStack_48;
+  undefined *puStack_38;
+  undefined8 uStack_30;
+  undefined *puStack_28;
+  undefined8 local_20;
+  long local_18;
+  undefined8 uStack_10;
+  long local_8;
+
+  plVar11 = (long *)&stack0x00000008;
+  do {
+    lVar10 = *plVar11;
+    plVar15 = plVar11 + 1;
+    plVar11 = plVar11 + 1;
+  } while (lVar10 != 0);
+  do {
+    plVar11 = plVar15 + 1;
+    lVar10 = *plVar15;
+    plVar15 = plVar11;
+  } while (lVar10 != 0);
+  uVar8 = 0x1000;
+  do {
+    puVar1 = (ulong *)(plVar11 + 1);
+    lVar10 = *plVar11;
+    if ((int)lVar10 == 0) goto LAB_0040b2f8;
+    plVar11 = plVar11 + 2;
+  } while ((int)lVar10 != 6);
+  uVar8 = *puVar1 & 0xffffffff;
+LAB_0040b2f8:
+  local_8 = -uVar8;
+  syscall();
+  uVar4 = 0x13f;
+  puStack_28 = &DAT_00409000;
+  local_18 = 0xc7d;
+  local_20 = 0xffffffffffffffff;
+  uStack_30 = 0x2150;
+  puStack_38 = &DAT_0040917c;
+  uVar7 = 0;
+  pcVar9 = FUN_0040b44f;
+  lVar10 = -1;
+  bVar18 = 0;
+  bVar16 = 0;
+  puVar12 = &DAT_0040b474;
+  plVar11 = local_cc0;
+  uStack_10 = param_1;
+  do {
+    while ((*pcVar9)(), pcVar9 = extraout_RDX, (bool)bVar16) {
+      *(undefined1 *)plVar11 = *puVar12;
+      puVar12 = puVar12 + (ulong)bVar18 * -2 + 1;
+      plVar11 = (long *)((long)plVar11 + (ulong)bVar18 * -2 + 1);
+    }
+    do {
+      uVar3 = (*pcVar9)();
+      bVar16 = CARRY4(uVar3,uVar3) || CARRY4(uVar3 * 2,(uint)bVar16);
+      uVar3 = (*extraout_RDX_00)();
+      uVar6 = (uint)uVar7;
+      pcVar9 = extraout_RDX_01;
+    } while (!(bool)bVar16);
+    bVar16 = uVar3 < 3;
+    puVar13 = puVar12;
+    if (!(bool)bVar16) {
+      puVar13 = puVar12 + (ulong)bVar18 * -2 + 1;
+      bVar16 = false;
+      uVar3 = CONCAT31((int3)uVar3 + -3,*puVar12) ^ 0xffffffff;
+      if (uVar3 == 0) {
+        if (puVar13 == &DAT_0040bdd2) {
+          local_cc0[0] = local_8;
+          lVar10 = local_18 + -0x10;
+          do {
+            iVar5 = FUN_0040b430();
+          } while (extraout_EDX != iVar5);
+          lVar10 = FUN_0040b430(0,lVar10,5);
+          uStack_48 = 3;
+          syscall();
+                    /* WARNING: Could not recover jumptable at 0x0040b42e. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+          (*(code *)(lVar10 + 8))(uVar4);
+          return;
+        }
+        do {
+                    /* WARNING: Do nothing block with infinite loop */
+        } while( true );
+      }
+      lVar10 = (long)(int)uVar3;
+    }
+    (*extraout_RDX_01)();
+    bVar17 = CARRY4(uVar6,uVar6) || CARRY4(uVar6 * 2,(uint)bVar16);
+    iVar5 = uVar6 * 2 + (uint)bVar16;
+    auVar19 = (*extraout_RDX_02)();
+    pcVar9 = auVar19._8_8_;
+    uVar3 = auVar19._0_4_;
+    uVar6 = iVar5 * 2 + (uint)bVar17;
+    if (uVar6 == 0) {
+      uVar8 = auVar19._0_8_ & 0xffffffff;
+      bVar16 = 0xfffffffd < uVar3;
+      do {
+        uVar6 = (uint)uVar8;
+        (*pcVar9)();
+        uVar3 = (uint)bVar16;
+        bVar16 = CARRY4(uVar6,uVar6) || CARRY4(uVar6 * 2,uVar3);
+        uVar8 = (ulong)(uVar6 * 2 + uVar3);
+        uVar3 = (*extraout_RDX_03)();
+        uVar6 = (uint)uVar8;
+        pcVar9 = extraout_RDX_04;
+      } while (!(bool)bVar16);
+    }
+    uVar2 = (uint)((uint)lVar10 < 0xfffff300);
+    bVar16 = CARRY4(uVar6,uVar3) || CARRY4(uVar6 + uVar3,uVar2);
+    puVar14 = (undefined *)((long)plVar11 + lVar10);
+    for (uVar8 = (ulong)(uVar6 + uVar3 + uVar2); uVar8 != 0; uVar8 = uVar8 - 1) {
+      *(undefined *)plVar11 = *puVar14;
+      puVar14 = puVar14 + (ulong)bVar18 * -2 + 1;
+      plVar11 = (long *)((long)plVar11 + (ulong)bVar18 * -2 + 1);
+    }
+    uVar7 = 0;
+    puVar12 = puVar13;
+  } while( true );
+}
