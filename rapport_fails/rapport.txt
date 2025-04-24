@@ -32,3 +32,6 @@ solution: checker l'overflow avant de convertir
 
 breach_6: insecure random value -> simulate_meltdown : si local_c est en dessous de 5 grâce à la fonction rand() alors ça va déclancher le secret code leaked
 solution: gérer un meilleur cas d'erreur
+
+breach_7: logic flaw -> run_turbine : si on met plus de 15 rotations, print : {ERR0R TURB1NE CAN\'T ST0P}
+solution: range l'input
