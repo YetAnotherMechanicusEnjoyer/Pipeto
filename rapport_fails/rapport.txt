@@ -16,13 +16,19 @@ maintenant le fichier est bien plus compréhensible dans ghidra et on peut essay
 voici les différentes failles:
 
 breach_1: hardcoded password -> activate_emergency_protocols : admin123
+solution: hasher le mot de passe
 
 breach_2: hardcoded secret -> load_fuel_rods : {The secret stone is here !}
+solution: hasher le secret
 
 breach_3: logic flaw -> load_fuel_rods : si on met 0 ça nous donne le mot de passe
+solution: range l'input
 
-breach_4: common injection -> log_system_event : si on met leak ça nous écris le mot de passe dans le fichier Data/system.log
+breach_4: common injection -> log_system_event : si on met "leak" ça nous écris le mot de passe dans le fichier Data/system.log
+solution: contrôler l'input
 
 breach_5: interger overflow -> set_reactor_power : si on met 2147483647 ce qui est la valeur max d'un int ça fait un shutdown
+solution: checker l'overflow avant de convertir
 
 breach_6: insecure random value -> simulate_meltdown : si local_c est en dessous de 5 grâce à la fonction rand() alors ça va déclancher le secret code leaked
+solution: gérer un meilleur cas d'erreur
