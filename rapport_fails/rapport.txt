@@ -39,14 +39,14 @@ solution: range l'input
 breach_8: int overflow -> turbine_temperature : lVar2 est un long qui est cast en int dans la variable local_c. Cependant, il n'y a pas de mesure pour gérer l'overflow. Si la valeur de local_c est le limite d'un int en positif ou en négatif, le programe retourneras la valeur 1 et afficheras : {ERR0R TURBINE WILL EXPLODE}
 solution: checker l'overflow avant de convertir
 
-breach_9: hardcoded secret -> FUN_00401ed3 : "{The stone isn\'t in the pocket anymore...}" est hardcodé dans la fonction
+breach_9: hardcoded secret -> stone_in_the_pocket : "{The stone isn\'t in the pocket anymore...}" est hardcodé dans la fonction
 solution: hasher le secret
 
-breach_10: hardcoded secret -> FUN_0040264c : "{ADMIN4242}" est hardcodé dans la fonction
+breach_10: hardcoded secret -> ADMIN4242 : "{ADMIN4242}" est hardcodé dans la fonction
 solution: hasher le secret
 
-breach_11: hardcoded password -> FUN_00402687 : "ThisIsTheBestPassword" est hardocé dans la fonction, indiquant par la suite que c'est le bon mot de passe administrateur "{Correct password! Welcome, admin.}"
+breach_11: hardcoded password -> ThisIsTheBestPassword : "ThisIsTheBestPassword" est hardocé dans la fonction, indiquant par la suite que c'est le bon mot de passe administrateur "{Correct password! Welcome, admin.}"
 solution: hasher le mot de passe
 
-breach_12: hardcoded secret -> FUN_00402b63 : condition pour "{SHUTDOWN}" le programme hardcodée dans la fonction
+breach_12: hardcoded secret -> SHUTDOWN : condition pour "{SHUTDOWN}" le programme hardcodée dans la fonction
 solution: hasher le secret
