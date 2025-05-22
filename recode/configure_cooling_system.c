@@ -7,20 +7,17 @@ void configure_cooling_system(void)
     char *config_file = "Data/cooling_config.txt";
     char buffer[64];
     FILE *file = fopen(config_file, "r");
+    int result = system(buffer);
 
     if (!file) {
         printf("Error: Unable to open configuration file: %s\n", config_file);
-        retun;
+        return;
     }
     printf("Reading configuration file: %s\n", config_file);
     fread(buffer, 1, sizeof(buffer) - 1, file);
     buffer[sizeof(buffer) - 1] = '\0';
     fclose(file);
-
     printf("Applying configuration: %s\n", buffer);
-
-    int result = system(buffer);
-
     if (result == 0) {
         printf("Configuration applied succesfully.\n");
     } else {

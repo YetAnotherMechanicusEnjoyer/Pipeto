@@ -23,6 +23,7 @@ void check_cooling_pressure(void)
 {
     char *data = (char *)malloc(16);
     char sensitive_info[32] = "{Sensitive Data}";
+    char temp_buffer[32];
 
     load_data(data);
     printf("Cooling pressure check in progress...\n");
@@ -35,7 +36,6 @@ void check_cooling_pressure(void)
     if (strcmp(data, "Pressure OK"))
         printf("Sensitive Info: %s\n", sensitive_info);
     free(data);
-    char temp_buffer[32];
     snprintf(temp_buffer, sizeof(temp_buffer), "Temporary data: %d", rand() % 100);
     printf("Temporary buffer: %s\n", temp_buffer);
     simulate_sensor_reading();

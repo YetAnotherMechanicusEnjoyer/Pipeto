@@ -16,8 +16,21 @@ static void encrypt_message(const char *message, char *encrypted_message)
     snprintf(encrypted_message, 50, "%d", res);
 }
 
+static int display_message(const char *message, char encrypted_message[50])
+{
+    encrypt_message(message, encrypted_message);
+    sleep(1);
+    printf("Encrypted message: %s\n\n", encrypted_message);
+    printf("Reactor status: OK\n");
+    printf("Reactor status check complete.\n\n");
+    return 0;
+}
+
 void check_reactor_status(void)
 {
+    const char *message = "ReactorStatusOK";
+    char encrypted_message[50] = {0};
+
     printf("Starting reactor status check...\n");
     sleep(1);
     printf("Checking core temperature...\n");
@@ -31,14 +44,12 @@ void check_reactor_status(void)
     printf("Checking radiation levels...\n");
     sleep(2);
     printf("Radiation levels: Safe\n\n");
-
     printf("Encrypting critical reactor data...\n");
-    const char *message = "ReactorStatusOK";
-    char encrypted_message[50] = {0};
-    encrypt_message(message, encrypted_message);
-    sleep(1);
-    printf("Encrypted message: %s\n\n", encrypted_message);
+    display_message(message, encrypted_message);
+}
 
-    printf("Reactor status: OK\n");
-    printf("Reactor status check complete.\n\n");
+int main(void)
+{
+    check_reactor_status();
+    return 0;
 }
