@@ -47,9 +47,3 @@ void set_reactor_power()
     }
     fail_reactor_power(input_power, new_power);
 }
-
-int main(int argc, char *argv[])
-{
-  set_reactor_power();
-  return EXIT_SUCCESS;
-}

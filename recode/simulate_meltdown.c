@@ -10,13 +10,19 @@
 #include <string.h>
 #include <time.h>
 
-void simulate_meltdown() {
+static void print_reactor_status(int random_number, const char *reactor_status)
+{
+  printf("Reactor core temperature: %d\n", random_number);
+  printf("Reactor core status: %s\n", reactor_status);
+}
+
+void simulate_meltdown()
+{
   char reactor_status[32] = "Reactor Stable";
   int random_number = rand() % 100;
   char secret_code[16] = "{MELTDOWN1234}";
 
   printf("Generated random number: %d\n", random_number);
-
   if (random_number < 10) {
     printf("Meltdown simulated! Reactor core is overheating.\n");
     strcpy(reactor_status, "Reactor Overheating");
@@ -30,6 +36,5 @@ void simulate_meltdown() {
     printf("Reactor core temperature normal.\n");
     strcpy(reactor_status, "Reactor Normal");
   }
-  printf("Reactor core temperature: %d\n", random_number);
-  printf("Reactor core status: %s\n", reactor_status);
+  print_reactor_status(random_number, reactor_status);
 }

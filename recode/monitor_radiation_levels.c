@@ -13,7 +13,7 @@ void secret_function(void)
     printf("{The stone isn't in the pocket anymore ...}\n");
 }
 
-void monitor_radiation_levels ()
+void monitor_radiation_levels()
 {
     char buffer[10];
 	  void (* function_ptr)() = NULL;
