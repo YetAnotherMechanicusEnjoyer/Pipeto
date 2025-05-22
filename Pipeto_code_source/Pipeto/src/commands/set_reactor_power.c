@@ -18,7 +18,7 @@ void set_reactor_power()
     fgets(power, sizeof(power), stdin);
     power[strcspn(power, "\n")] = 0;
 
-    int input_power = atoi(power);
+    long long input_power = atoi(power);
     int new_power;
 
     if (input_power > INT_MAX - 1000) {
