@@ -16,13 +16,13 @@ void secret_function(void)
 void monitor_radiation_levels()
 {
     char buffer[10];
-	  void (* function_ptr)() = NULL;
-	  printf("Enter radiation levels: ");
-	  fgets(buffer, 10, stdin);
-	  printf("Radiation Levels: %s\n", buffer);
-	  if (function_ptr) {
-	      function_ptr();
-		} else {
+
+	void (* function_ptr)() = NULL;
+	printf("Enter radiation levels: ");
+	fgets(buffer, 10, stdin);
+	printf("Radiation Levels: %s\n", buffer);
+	if (function_ptr)
+	    function_ptr();
+	else
         printf("Function Pointer: %p\n", (void *)function_ptr);
-		}
 }
