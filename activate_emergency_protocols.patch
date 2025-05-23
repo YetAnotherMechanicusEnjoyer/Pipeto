@@ -1,0 +1,38 @@
+diff --git a/rendu/activate_emergency_protocols.c b/rendu/activate_emergency_protocols.c
+index 2621b27..f0abf22 100644
+--- a/rendu/activate_emergency_protocols.c
++++ b/rendu/activate_emergency_protocols.c
+@@ -2,27 +2,26 @@
+ ** EPITECH PROJECT, 2024
+ ** Pipeto
+ ** File description:
+-** activate_emergency_protocols
++** activate_emergency_protocols.c
+ */
+ 
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdbool.h>
+-#include "pipeto.h"
++#include "header.h"
+ 
+-void activate_emergency_protocols()
++void activate_emergency_protocols(void)
+ {
+-    char input[100];
+-    
++    char init[100];
++
+     printf("Enter emergency password: ");
+     fgets(input, sizeof(input), stdin);
+     input[strcspn(input, "\n")] = 0;
+-
+     if (strlen(input) == 0) {
+         printf("No password entered, emergency protocols not activated.\n");
+         return;
+     }
+-    if (strcmp(input, "admin123") == 0) {
++    if (strcmp(input, ADMIN_MDP) == 0) {
+         printf("{Emergency protocols activated, you are now admin !}\n");
+         IS_ADMIN = true;
+     }
