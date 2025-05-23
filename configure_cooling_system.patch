@@ -1,0 +1,51 @@
+diff --git a/rendu/configure_cooling_system.c b/rendu/configure_cooling_system.c
+index 14a848b..5e37ac4 100644
+--- a/rendu/configure_cooling_system.c
++++ b/rendu/configure_cooling_system.c
+@@ -2,36 +2,32 @@
+ ** EPITECH PROJECT, 2024
+ ** Pipeto
+ ** File description:
+-** configure_cooling_system
++** configure_cooling_system.c
+ */
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-void configure_cooling_system()
++void configure_cooling_system(void)
+ {
+     char *config_file = "Data/cooling_config.txt";
+     char buffer[64];
+     FILE *file = fopen(config_file, "r");
++    int result = system(buffer);
+ 
+     if (!file) {
+         printf("Error: Unable to open configuration file: %s\n", config_file);
+         return;
+     }
+-
+     printf("Reading configuration file: %s\n", config_file);
+     fread(buffer, 1, sizeof(buffer) - 1, file);
+     buffer[sizeof(buffer) - 1] = '\0';
+     fclose(file);
+-
+     printf("Applying configuration: %s\n", buffer);
+-
+-    int result = system(buffer);
+-
+-    if (result == 0) {
+-        printf("Configuration applied successfully.\n");
+-    } else {
+-        printf("Failed to apply configuration. Command returned: %d\n", result);
+-    }
+-}
+\ No newline at end of file
++    if (result == 0)
++        printf("Configuration applied succesfully.\n");
++    else
++        printf("Failed to apply configuration. Command returned: %d\n",
++            result);
++}
