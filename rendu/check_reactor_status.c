@@ -2,27 +2,42 @@
 ** EPITECH PROJECT, 2024
 ** Pipeto
 ** File description:
-** check_reactor_status
+** check_reactor_status.c
 */
 
 #include <stdio.h>
 #include <unistd.h>
 
-void encrypt_message(const char *input, char *output, int shift)
+static void encrypt_message(const char *message, char *encrypted_message)
 {
-    for (int i = 0; input[i] != '\0'; i++) {
-        if (input[i] >= 'A' && input[i] <= 'Z') {
-            output[i] = ((input[i] - 'A' + shift) % 26) + 'A';
-        } else if (input[i] >= 'a' && input[i] <= 'z') {
-            output[i] = ((input[i] - 'a' + shift) % 26) + 'a';
-        } else {
-            output[i] = input[i];
-        }
+    int res = 0;
+
+    for (int ky = 0; message[ky]; ky++){
+        if (ky % 2 == 1)
+            res += message[ky] * 61043;
+        if (ky % 2 == 0)
+            res += message[ky];
     }
+    if (res < 0)
+        res *= -1;
+    snprintf(encrypted_message, 50, "%d", res);
 }
 
-void check_reactor_status()
+static int display_message(const char *message, char encrypted_message[50])
 {
+    encrypt_message(message, encrypted_message);
+    sleep(1);
+    printf("Encrypted message: %s\n\n", encrypted_message);
+    printf("Reactor status: OK\n");
+    printf("Reactor status check complete.\n\n");
+    return 0;
+}
+
+void check_reactor_status(void)
+{
+    const char *message = "ReactorStatusOK";
+    char encrypted_message[50] = {0};
+
     printf("Starting reactor status check...\n");
     sleep(1);
     printf("Checking core temperature...\n");
@@ -36,14 +51,12 @@ void check_reactor_status()
     printf("Checking radiation levels...\n");
     sleep(2);
     printf("Radiation levels: Safe\n\n");
-
     printf("Encrypting critical reactor data...\n");
-    const char *message = "ReactorStatusOK";
-    char encrypted_message[50] = {0};
-    encrypt_message(message, encrypted_message, 3);
-    sleep(1);
-    printf("Encrypted message: %s\n\n", encrypted_message);
+    display_message(message, encrypted_message);
+}
 
-    printf("Reactor status: OK\n");
-    printf("Reactor status check complete.\n\n");
+int main(void)
+{
+    check_reactor_status();
+    return 0;
 }
