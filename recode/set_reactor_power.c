@@ -31,7 +31,7 @@ static int fail_reactor_power(long long input_power, int new_power)
     return 0;
 }
 
-void set_reactor_power()
+void set_reactor_power(void)
 {
     char power[11];
     long long input_power;

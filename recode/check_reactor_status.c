@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2024
+** Pipeto
+** File description:
+** check_reactor_status.c
+*/
+
 #include <stdio.h>
 #include <unistd.h>
 

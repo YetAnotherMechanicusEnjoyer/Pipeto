@@ -20,7 +20,8 @@ static void print_diagnostic_result(int *data, char *sensitive_info)
         printf("Diagnostic result: Code %d\n", *data);
 }
 
-static int *prepare_diagnostic_data(char *input, char *sensitive_info, int *diagnostic_code)
+static int *prepare_diagnostic_data(char *input, char *sensitive_info,
+    int *diagnostic_code)
 {
     int *data = NULL;
 
@@ -33,7 +34,7 @@ static int *prepare_diagnostic_data(char *input, char *sensitive_info, int *diag
     return data;
 }
 
-void run_diagnostic()
+void run_diagnostic(void)
 {
     int *data = NULL;
     char input[32];

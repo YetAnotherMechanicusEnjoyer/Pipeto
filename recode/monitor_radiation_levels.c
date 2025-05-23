@@ -13,11 +13,11 @@ void secret_function(void)
     printf("{The stone isn't in the pocket anymore ...}\n");
 }
 
-void monitor_radiation_levels()
+void monitor_radiation_levels(void)
 {
-    char buffer[10];
+	char buffer[10];
+	void (*function_ptr)(void) = NULL;
 
-	void (* function_ptr)() = NULL;
 	printf("Enter radiation levels: ");
 	fgets(buffer, 10, stdin);
 	printf("Radiation Levels: %s\n", buffer);

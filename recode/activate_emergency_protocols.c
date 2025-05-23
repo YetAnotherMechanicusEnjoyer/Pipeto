@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2024
+** Pipeto
+** File description:
+** activate_emergency_protocols.c
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>

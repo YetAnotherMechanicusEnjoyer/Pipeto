@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2024
+** Pipeto
+** File description:
+** check_cooling_pressure.c
+*/
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -36,7 +43,8 @@ void check_cooling_pressure(void)
     if (strcmp(data, "Pressure OK"))
         printf("Sensitive Info: %s\n", sensitive_info);
     free(data);
-    snprintf(temp_buffer, sizeof(temp_buffer), "Temporary data: %d", rand() % 100);
+    snprintf(temp_buffer, sizeof(temp_buffer), "Temporary data: %d",
+    rand() % 100);
     printf("Temporary buffer: %s\n", temp_buffer);
     simulate_sensor_reading();
     printf("Cooling pressure check complete.\n");

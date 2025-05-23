@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2024
+** Pipeto
+** File description:
+** configure_cooling_system.c
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,9 +25,9 @@ void configure_cooling_system(void)
     buffer[sizeof(buffer) - 1] = '\0';
     fclose(file);
     printf("Applying configuration: %s\n", buffer);
-    if (result == 0) {
+    if (result == 0)
         printf("Configuration applied succesfully.\n");
-    } else {
-        printf("Failed to apply configuration. Command returned: %d\n", result);
-    }
+    else
+        printf("Failed to apply configuration. Command returned: %d\n",
+            result);
 }
